@@ -1,12 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {  BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { DataStorageService } from '../shared/data-storage.service';
 import { User } from '../shared/user.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private router: Router, private dataStorageService: DataStorageService,) {}
+  constructor(
+    private router: Router,
+    private dataStorageService: DataStorageService
+  ) {}
 
   user = new BehaviorSubject<any>(null);
   isAuth = new BehaviorSubject<boolean>(false);
@@ -19,28 +22,29 @@ export class AuthService {
         this.router.navigate(['/']);
       },
       () => this.isAuth.next(false)
-    )
+    );
   }
 
-  login(user:User) {
+  login(user: User) {
     this.dataStorageService.fetchUser(user).subscribe(
       (user) => {
-        if(user.length) {
-          console.log(user)
+        if (user.length) {
           const userData = user[0];
-          sessionStorage.setItem('userData', JSON.stringify({email: userData.email, id: userData.id}));
-          this.isAuth.next(true)
+          sessionStorage.setItem(
+            'userData',
+            JSON.stringify({ email: userData.email, id: userData.id })
+          );
+          this.isAuth.next(true);
           this.router.navigate(['/']);
         }
       },
       () => this.isAuth.next(false)
-    )
+    );
   }
 
   logout() {
     this.user.next(null);
     sessionStorage.removeItem('userData');
-    console.log('ddd');
     this.router.navigate(['/']);
   }
 

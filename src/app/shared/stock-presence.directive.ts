@@ -1,15 +1,14 @@
-import { AfterViewInit, Directive, ElementRef, Input } from "@angular/core";
+import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: "[stock]"
+  selector: '[stock]',
 })
 export class StockPresenceDirective implements AfterViewInit {
-
   @Input('stock') textColor: string;
 
   constructor(private elRef: ElementRef) {}
 
-  ngAfterViewInit () {
+  ngAfterViewInit() {
     this.elRef.nativeElement.style.color = this.textColor;
   }
 }

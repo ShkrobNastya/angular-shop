@@ -1,9 +1,17 @@
-<button *ngIf="!isAddToCartBtnClicked; else counter" (click)="addToCart()" href="#" class="btn btn-primary" role="button" [disabled]="disabled">Add to cart</button>
+<button
+  *ngIf="!isAddToCartBtnClicked; else counter"
+  (click)="addToCart()"
+  href="#"
+  class="btn btn-primary"
+  role="button"
+  [disabled]="disabled"
+>
+  Add to cart
+</button>
 <ng-template #counter>
   <div *ngIf="isAddToCartBtnClicked" class="counter">
     <button (click)="decrementCount()" class="btn btn-primary">-</button>
-    <span class="counter__count">{{count}}</span>
+    <span class="counter__count">{{ count }}</span>
     <button (click)="incrementCount()" class="btn btn-primary">+</button>
   </div>
 </ng-template>
-

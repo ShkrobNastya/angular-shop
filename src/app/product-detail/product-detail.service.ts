@@ -1,6 +1,6 @@
 import { Review } from './../shared/review.model';
-import { Subject } from "rxjs";
-import { Product } from "../shared/product.model";
+import { Subject } from 'rxjs';
+import { Product } from '../shared/product.model';
 
 export class ProductDetailService {
   productChanged = new Subject<Product>();
@@ -9,11 +9,11 @@ export class ProductDetailService {
   private product: Product;
   private reviews: Review[];
 
-  stockPresenceColor: {[key: string]: string} = {
+  stockPresenceColor: { [key: string]: string } = {
     'In stock': 'green',
     'Almost sold out': 'red',
-    'Out of stock': 'grey'
-  }
+    'Out of stock': 'grey',
+  };
 
   setProduct(product: Product) {
     this.product = product;

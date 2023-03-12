@@ -21,7 +21,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductReviewComponent } from './product-detail/product-review/product-review.component';
 import { AddToCartButtonComponent } from './shared/addToCart-button/addToCart-button.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,9 +42,9 @@ import { AddToCartButtonComponent } from './shared/addToCart-button/addToCart-bu
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [HomeService, ProductDetailService, CartService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

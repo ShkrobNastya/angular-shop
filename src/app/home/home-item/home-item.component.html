@@ -1,18 +1,24 @@
 <div class="col-sm-6 col-md-4">
   <div class="thumbnail">
     <a [routerLink]="['/product', product.id]">
-      <img [src]="product.image" alt="noProducts">
+      <img [src]="product.image" alt="noProducts" />
     </a>
     <div class="caption">
       <h5>{{ product.title }}</h5>
       <div class="product__buttons">
-        <app-addToCart-button [count]="count" [productID]="product.id" [disabled]="this.product.stock === 0"></app-addToCart-button>
-        <a [routerLink]="['/product/edit', product.id]" class="btn btn-success">Edit</a>
+        <app-addToCart-button
+          [count]="count"
+          [productID]="product.id"
+          [disabled]="this.product.stock === 0"
+        ></app-addToCart-button>
+        <a [routerLink]="['/product/edit', product.id]" class="btn btn-success"
+          >Edit</a
+        >
         <button (click)="onDelete()" class="btn btn-danger">Delete</button>
       </div>
       <div class="bottom-block">
         <div class="rating">
-          <span>{{product.rating.rate}}</span>
+          <span>{{ product.rating.rate }}</span>
           <fa-icon [icon]="faStar"></fa-icon>
         </div>
         <div class="price">{{ product.price }}$</div>
@@ -20,4 +26,3 @@
     </div>
   </div>
 </div>
-

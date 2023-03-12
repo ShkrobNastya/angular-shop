@@ -1,5 +1,5 @@
 export class Product {
-  constructor (
+  constructor(
     public id: number,
     public title: string,
     public price: number,
@@ -7,5 +7,6 @@ export class Product {
     public image: string,
     public featured: boolean,
     public stock: number,
-    public rating: {rate: number, count:number}) {}
+    public rating: { rate: number; count: number }
+  ) {}
 }

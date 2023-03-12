@@ -12,14 +12,20 @@
     </thead>
     <tbody>
       <tr [@list1] *ngFor="let cartOrder of cart">
-        <td>{{cartOrder.id}}</td>
-        <td>{{cartOrder.title}}</td>
-        <td>{{cartOrder.count}}</td>
-        <td>{{cartOrder.price}}</td>
-        <td>{{cartOrder.price * cartOrder.count}}</td>
-        <td><button (click)="onDelete(cartOrder.id)" class="btn btn-danger">✕</button></td>
+        <td>{{ cartOrder.id }}</td>
+        <td>{{ cartOrder.title }}</td>
+        <td>{{ cartOrder.count }}</td>
+        <td>{{ cartOrder.price }}</td>
+        <td>{{ cartOrder.price * cartOrder.count }}</td>
+        <td>
+          <button (click)="onDelete(cartOrder.id)" class="btn btn-danger">
+            ✕
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-  <ng-template #emptyCart><div class="cart-empty">Cart is empty!</div></ng-template>
+  <ng-template #emptyCart
+    ><div class="cart-empty">Cart is empty!</div></ng-template
+  >
 </div>

@@ -1,7 +1,6 @@
 import { Subject } from 'rxjs';
 import { Cart } from './../shared/cart.model';
 export class CartService {
-
   cartChanged = new Subject<Cart[]>();
 
   private cart: Cart[] = [];
@@ -14,5 +13,4 @@ export class CartService {
   getCart() {
     return this.cart.slice();
   }
-
 }

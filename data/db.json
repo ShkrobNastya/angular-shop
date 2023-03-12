@@ -151,16 +151,6 @@
       "email": "test@gmail.com",
       "password": "Test_12",
       "id": 2
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "Test_12",
-      "id": 3
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "Testin_12",
-      "id": 4
     }
   ],
   "reviews": [

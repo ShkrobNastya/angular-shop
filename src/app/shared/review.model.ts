@@ -1,10 +1,9 @@
 export class Review {
-  constructor (
+  constructor(
     public id: number,
     public productId: number,
     public name: string,
     public rate: number,
-    public text: string,
-    )
-  {}
+    public text: string
+  ) {}
 }

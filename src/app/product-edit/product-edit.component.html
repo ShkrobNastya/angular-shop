@@ -3,30 +3,37 @@
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <div class="product__input">
         <span>Image:</span>
-        <input type="text" class="form-control" formControlName="image">
+        <input type="text" class="form-control" formControlName="image" />
       </div>
       <div class="product__input">
         <span>Title:</span>
-        <input type="text" class="form-control" formControlName="title">
+        <input type="text" class="form-control" formControlName="title" />
       </div>
       <div class="product__input">
         <span>Price:</span>
-        <input type="text" class="form-control" formControlName="price">
+        <input type="text" class="form-control" formControlName="price" />
       </div>
       <div class="product__input">
         <span>Number in stock:</span>
-        <input type="number" class="form-control" formControlName="stock">
+        <input type="number" class="form-control" formControlName="stock" />
       </div>
       <div class="product__input">
         <span>Description:</span>
-        <textarea name="" id="" cols="78" rows="10" formControlName="description"></textarea>
+        <textarea
+          name=""
+          id=""
+          cols="78"
+          rows="10"
+          formControlName="description"
+        ></textarea>
       </div>
       <button type="submit" class="btn btn-success">Edit</button>
     </form>
     <div>
-      <img class="product__img" [src]="product.image" alt="product">
+      <img class="product__img" [src]="product.image" alt="product" />
     </div>
   </div>
-  <div *ngIf="isToastVisible" class="toast bg-success">Successfully edited!</div>
+  <div *ngIf="isToastVisible" class="toast bg-success">
+    Successfully edited!
+  </div>
 </div>
-
