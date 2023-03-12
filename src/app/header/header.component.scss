@@ -1,0 +1,17 @@
+.cart-icon {
+  display: block;
+}
+.navbar-right {
+  display: flex;
+}
+.logout {
+  color: #777;
+  padding: 10px 15px;
+  font-size: 18px;
+  line-height: 30px;
+  border: none;
+  background: transparent;
+  &:hover {
+    color: black;
+  }
+}

@@ -1,0 +1,38 @@
+img {
+  max-height: 245px;
+}
+span {
+  margin-right: 10px;
+}
+.price {
+  font-size: 16px;
+}
+.rating {
+  line-height: 22px;
+  & > span {
+    margin-right: 5px;
+    font-size: 16px;
+  }
+  .ng-fa-icon {
+    color: #f5c71a;
+  }
+}
+.bottom-block {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.product {
+  &__count {
+    text-align: center;
+    width: 30%;
+    margin: 0;
+    font-size: 16px;
+  }
+  &__buttons {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    height: 34px;
+  }
+}

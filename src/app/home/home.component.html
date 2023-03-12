@@ -1,0 +1,51 @@
+<div>
+  <div style="display: flex;">
+    <aside class="col-md-2">
+      <aside>
+        <form class="filters" (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div class="filter">
+            <div class="filter__title">Price</div>
+            <div class="filter__input-wrapper">
+              <input class="filter__input form-control" type="text" placeholder="from" [(ngModel)]="filtersObj['minPrice']" name="minPrice"/>
+              <input class="filter__input-input form-control" type="text" placeholder="to" [(ngModel)]="filtersObj['maxPrice']" name="maxPrice"/>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="filter__title">Rating</div>
+            <div class="filter__input-wrapper">
+              <input class="filter__input-input form-control" type="text" placeholder="from" [(ngModel)]="filtersObj['minRating']" name="minRating"/>
+              <input class="filter__input-input form-control" type="text" placeholder="to" [(ngModel)]="filtersObj['maxRating']" name="maxRating"/>
+            </div>
+          </div>
+          <div class="filter">
+            <div class="filter__title">Stock presence</div>
+            <input class="filter-checkbox" type="checkbox" [(ngModel)]="filtersObj['stockPresence']" name="stockPresence"/>
+          </div>
+          <div class="filter">
+            <div class="filter__title">Reviews presence</div>
+            <input class="filter-checkbox" type="checkbox" [(ngModel)]="filtersObj['reviewsPresence']" name="reviewsPresence"/>
+          </div>
+          <button class="btn btn-default btn-block" type="submit">
+            <span>Apply</span>
+          </button>
+          <div class="btn btn-default btn-block" (click)="onClear()">
+            <span> {{products.length}} product(s)</span>
+            <button class="btn close clear-btn">✕</button>
+          </div>
+        </form>
+
+      </aside>
+    </aside>
+    <div class="col-md-8">
+      <div class="filter-badges__wrapper">
+        <div *ngFor="let badgeTile of badgeTiles; let i=index" class="filter-badges__item">
+          <span>{{badgeTile}}</span>
+          <button type="button" class="btn btn-default filter-badges__button" (click)="removeFilter(i)">✕</button>
+        </div>
+      </div>
+      <app-home-item (delete)="onDelete(product.id)" *ngFor="let product of products" [product]="product" [count]="getCountById(product.id)"></app-home-item>
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,13 @@
+<div class="review">
+  <div class="review__user-icon">
+    <fa-icon [icon]="faUserCircle"></fa-icon>
+  </div>
+  <div class="review__description">
+    <p class="review__name">{{review.name}}</p>
+    <div class="rating">
+      <span>{{review.rate}}</span>
+      <fa-icon [icon]="faStar"></fa-icon>
+    </div>
+    <p class="review__text">{{review.text}}</p>
+  </div>
+</div>

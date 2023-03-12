@@ -1,0 +1,28 @@
+.filter {
+  margin-bottom: 10px;
+  &__title {
+    font-size: 16px;
+    flex: 700;
+  }
+  &__input-wrapper {
+    display: flex;
+  }
+}
+.filter-badges {
+  &__wrapper {
+    margin: 10px 15px;
+  }
+  &__item {
+    display: inline;
+    background-color: #ccc;
+    color:#555;
+    padding: 5px 8px;
+    border-radius: 2px;
+    margin-right: 10px;
+  }
+  &__button {
+    padding: 4px 3px;
+    line-height: 14px;
+    margin-left: 6px;
+  }
+}
