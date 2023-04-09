@@ -21,8 +21,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        let queryParams = this.route.snapshot.queryParams;
-        let queryParamsString = this.homeService.createQueryParams(queryParams);
+        const queryParams = this.route.snapshot.queryParams;
+        const queryParamsString =
+          this.homeService.createQueryParams(queryParams);
         this.badgeTiles = this.homeService.createBadges(queryParams);
         for (let key in queryParams) {
           this.filtersObj[key] = queryParams[key];
@@ -62,8 +63,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    let formControls = Object.entries(form.controls);
-    let queryParamsObj: { [key: string]: number } = {};
+    const formControls = Object.entries(form.controls);
+    const queryParamsObj: { [key: string]: number } = {};
     formControls
       .map((el) => ({ name: el[0], value: el[1].value }))
       .filter((el) => el.value !== '' && el.value !== false)
@@ -81,11 +82,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   removeFilter(index: number) {
-    let queryParams = this.route.snapshot.queryParams;
-    const removedFilter = Object.keys(queryParams)[index];
-    this.filtersObj[removedFilter] = null;
-    const { [removedFilter]: removedFilter1, ...restFilters } = queryParams;
-    this.router.navigate(['/'], { queryParams: { ...restFilters } });
+    const queryParams = this.route.snapshot.queryParams;
+    const removedFilterKey = Object.keys(queryParams)[index];
+    this.filtersObj[removedFilterKey] = null;
+    const { [removedFilterKey]: removedFilter, ...restFilters } = queryParams;
+    this.router.navigate(['/'], { queryParams: restFilters });
   }
 
   ngOnDestroy(): void {

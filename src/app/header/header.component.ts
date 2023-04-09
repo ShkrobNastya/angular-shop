@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../auth/auth.service';
@@ -8,11 +8,16 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   faShoppingCart = faShoppingCart;
   faRightFromBracket = faRightFromBracket;
+  isAuthed: boolean;
+
+  ngOnInit() {
+    this.authService.user.subscribe((user) => (this.isAuthed = !!user));
+  }
 
   logout() {
     this.authService.logout();

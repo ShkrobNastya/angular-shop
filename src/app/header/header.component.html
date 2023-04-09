@@ -11,7 +11,9 @@
         >
           <a [routerLink]="['/']">Shop</a>
         </li>
-        <li><a [routerLink]="['/auth']">Authentication</a></li>
+        <li *ngIf="!isAuthed">
+          <a [routerLink]="['/auth']">Authentication</a>
+        </li>
         <li routerLinkActive="active">
           <a class="cart-icon" [routerLink]="['/cart']">
             <fa-icon [icon]="faShoppingCart"></fa-icon>
@@ -25,7 +27,7 @@
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
-        <button class="logout" (click)="logout()">
+        <button *ngIf="isAuthed" class="logout" (click)="logout()">
           <fa-icon [icon]="faRightFromBracket"></fa-icon>
         </button>
       </div>

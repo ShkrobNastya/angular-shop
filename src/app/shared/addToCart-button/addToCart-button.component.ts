@@ -37,14 +37,14 @@ export class AddToCartButtonComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.isAddToCartBtnClicked = !(this.count === 0);
+    this.isAddToCartBtnClicked = this.count !== 0;
   }
 
   addToCart() {
     this.count++;
     this.isAddToCartBtnClicked = true;
 
-    let newCartItem = {
+    const newCartItem = {
       id: this.product.id,
       title: this.product.title,
       count: this.count,

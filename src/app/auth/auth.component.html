@@ -5,8 +5,8 @@
       #f="ngForm"
       [ngClass]="{ 'registration-form': isAuthentication }"
     >
-      <h2>{{ isAuthentication ? 'Sign in' : 'Sign up' }}</h2>
-      <div *ngIf="!isAuthed && f.submitted" class="bg-danger toast">
+      <h2>{{ isAuthentication ? 'Register' : 'Login' }}</h2>
+      <div *ngIf="!isErrorPopupHidden && f.submitted" class="bg-danger toast">
         Ops..., please check your email and adress
       </div>
       <div class="form-group">
@@ -34,7 +34,7 @@
         />
       </div>
       <button type="submit" class="btn btn-default" [disabled]="!f.form.valid">
-        {{ isAuthentication ? 'Sign in' : 'Register' }}
+        {{ isAuthentication ? 'Register' : 'Login' }}
       </button>
     </form>
     <br />

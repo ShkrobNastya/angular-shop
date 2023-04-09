@@ -12,33 +12,30 @@ export class AuthService {
   ) {}
 
   user = new BehaviorSubject<any>(null);
-  isAuth = new BehaviorSubject<boolean>(false);
+  isErrorPopupHidden = new BehaviorSubject<boolean>(true);
 
-  signUp(user: User) {
+  register(user: User) {
     this.dataStorageService.addUser(user).subscribe(
       (user) => {
         this.handleAuthentication(user.email, user.id);
-        this.isAuth.next(true);
+        this.isErrorPopupHidden.next(true);
         this.router.navigate(['/']);
       },
-      () => this.isAuth.next(false)
+      () => this.isErrorPopupHidden.next(false)
     );
   }
 
   login(user: User) {
     this.dataStorageService.fetchUser(user).subscribe(
-      (user) => {
-        if (user.length) {
-          const userData = user[0];
-          sessionStorage.setItem(
-            'userData',
-            JSON.stringify({ email: userData.email, id: userData.id })
-          );
-          this.isAuth.next(true);
+      (users) => {
+        if (users.length) {
+          const userData = users[0];
+          this.handleAuthentication(userData.email, userData.id);
+          this.isErrorPopupHidden.next(true);
           this.router.navigate(['/']);
         }
       },
-      () => this.isAuth.next(false)
+      () => this.isErrorPopupHidden.next(false)
     );
   }
 

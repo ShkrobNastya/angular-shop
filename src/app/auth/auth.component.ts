@@ -13,7 +13,7 @@ export class AuthComponent {
 
   @ViewChild('f') slForm: NgForm;
   isAuthentication: boolean = true;
-  isAuthed: boolean = false;
+  isErrorPopupHidden: boolean = false;
 
   onSubmit(form: NgForm) {
     const user: User = {
@@ -22,12 +22,14 @@ export class AuthComponent {
     };
 
     if (this.isAuthentication) {
-      this.authService.signUp(user);
+      this.authService.register(user);
     } else {
       this.authService.login(user);
     }
 
-    this.isAuthed = this.authService.isAuth.value;
+    this.authService.isErrorPopupHidden.subscribe((val) => {
+      this.isErrorPopupHidden = val;
+    });
   }
 
   onChangeAuth() {
