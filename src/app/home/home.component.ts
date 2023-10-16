@@ -1,11 +1,16 @@
 import { Cart } from './../shared/cart.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { DataStorageService } from '../shared/data-storage.service';
 import { Product } from '../shared/product.model';
 import { HomeService } from './home.service';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from '../store/state.model';
+import { deleteProductAction, getProductsAction } from '../store/actions/product.action';
+import { selectProducts } from '../store/selectors/product.selectors';
+import { selectCartItems } from '../store/selectors/cart.selectors';
+import { getCartDataAction } from '../store/actions/cart.action';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +19,10 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   constructor(
-    private dataStorageService: DataStorageService,
     private homeService: HomeService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<AppStateInterface>
   ) {
     this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -28,16 +33,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         for (let key in queryParams) {
           this.filtersObj[key] = queryParams[key];
         }
-        this.dataStorageService
-          .filterProducts(queryParamsString)
-          .subscribe(() => {
-            this.products = this.homeService.getProducts();
-          });
+
+
+        this.store.dispatch(getProductsAction({filters:queryParamsString}));
+        this.products$ = this.store.select(selectProducts);
       }
     });
   }
   subscription: Subscription;
   products: Product[] = [];
+  products$: Observable<any[]>;
   @ViewChild('f') slForm: NgForm;
   currentFiltersRoute: {} = {};
   filtersObj: { [key: string]: null | number | boolean } = {
@@ -52,8 +57,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   cart: Cart[] = [];
 
   ngOnInit() {
-    this.dataStorageService.fetchCart().subscribe((el) => {
-      this.cart = el;
+    this.store.select(selectCartItems).subscribe((cart) => {
+      this.cart = cart;
     });
   }
 
@@ -94,10 +99,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number) {
-    this.dataStorageService.deleteProduct(id).subscribe(() => {
-      this.dataStorageService.fetchProducts().subscribe(() => {
-        this.products = this.homeService.getProducts();
-      });
-    });
+    this.store.dispatch(deleteProductAction({id}));
   }
 }

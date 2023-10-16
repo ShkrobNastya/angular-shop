@@ -1,7 +1,6 @@
 import { Cart } from './../shared/cart.model';
-import { CartService } from './cart.service';
-import { DataStorageService } from './../shared/data-storage.service';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {
   animate,
   state,
@@ -9,6 +8,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { AppStateInterface } from '../store/state.model';
+import { selectCartItems } from './../store/selectors/cart.selectors';
+import { deleteCartOrderAction } from '../store/actions/cart.action';
 
 @Component({
   selector: 'app-cart',
@@ -44,21 +46,18 @@ import {
 })
 export class CartComponent implements OnInit {
   constructor(
-    private dataStorageService: DataStorageService,
-    private cartService: CartService
+    private store: Store<AppStateInterface>
   ) {}
 
   cart: Cart[];
 
   ngOnInit() {
-    this.dataStorageService.fetchCart().subscribe(() => {
-      this.cart = this.cartService.getCart();
+    this.store.select(selectCartItems).subscribe(cart => {
+      this.cart = cart;
     });
   }
 
   onDelete(id: number) {
-    this.dataStorageService.deleteCartOrder(id).subscribe(() => {
-      this.cart = this.cart.filter((order) => order.id !== id);
-    });
+    this.store.dispatch(deleteCartOrderAction({id}));
   }
 }

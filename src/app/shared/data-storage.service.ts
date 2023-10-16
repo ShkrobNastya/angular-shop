@@ -5,7 +5,6 @@ import { ProductDetailService } from './../product-detail/product-detail.service
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, take, tap } from 'rxjs/operators';
-import { HomeService } from '../home/home.service';
 import { Product } from './product.model';
 import { Review } from './review.model';
 
@@ -13,47 +12,22 @@ import { Review } from './review.model';
 export class DataStorageService {
   constructor(
     private http: HttpClient,
-    private homeService: HomeService,
-    private productDetailService: ProductDetailService,
-    private cartService: CartService
   ) {}
 
-  fetchProducts() {
-    return this.http.get<Product[]>('http://localhost:8000/products').pipe(
-      tap((products) => {
-        this.homeService.setProducts(products);
-      })
-    );
-  }
-
-  fetchProduct(id: number) {
-    return this.http.get<Product>(`http://localhost:8000/products/${id}`).pipe(
-      tap((product) => {
-        this.productDetailService.setProduct(product);
-      })
-    );
-  }
-
-  filterProducts(filters: string) {
+  fetchProducts(filters: string = '') {
+    let params = '';
+    if (filters) {
+      params = '?' + params;
+    }
     return this.http
-      .get<Product[]>(`http://localhost:8000/products?${filters}`)
-      .pipe(
-        tap((products) => {
-          this.homeService.setProducts(products);
-        })
-      );
+      .get<Product[]>(`http://localhost:8000/products${params}`);
   }
 
   updateProduct(newProduct: { [key: string]: string }, id: number) {
     return this.http
       .patch<Product>(`http://localhost:8000/products/${id}`, {
         ...newProduct,
-      })
-      .pipe(
-        tap((product) => {
-          this.productDetailService.setProduct(product);
-        })
-      );
+      });
   }
 
   deleteProduct(id: number) {
@@ -61,37 +35,25 @@ export class DataStorageService {
   }
 
   fetchCart() {
-    return this.http.get<Cart[]>('http://localhost:8000/cart').pipe(
-      tap((cart) => {
-        this.cartService.setCart(cart);
-      })
-    );
+    return this.http.get<Cart[]>('http://localhost:8000/cart');
   }
 
-  addToCart(newOrder: { [key: string]: string | number }) {
+  addCartOrder(newOrder:Cart) {
     return this.http
       .post<Cart>('http://localhost:8000/cart', {
         ...newOrder,
-      })
-      .subscribe();
+      });
   }
 
-  updateCart(newOrder: { [key: string]: number }, id: number) {
+  updateCartOrder(newOrder: { [key: string]: number }, id: number) {
     return this.http
       .patch<Cart>(`http://localhost:8000/cart/${id}`, {
         ...newOrder,
-      })
-      .subscribe();
+      });
   }
 
   deleteCartOrder(id: number) {
     return this.http.delete(`http://localhost:8000/cart/${id}`);
-  }
-
-  fetchProductCountInCart(id: number) {
-    return this.http
-      .get<Cart>(`http://localhost:8000/cart/${id}`)
-      .pipe(map((order) => order.count));
   }
 
   addUser(newUser: User) {
@@ -108,11 +70,6 @@ export class DataStorageService {
 
   fetchReviews(id: number) {
     return this.http
-      .get<Review[]>(`http://localhost:8000/reviews?productId=${id}`)
-      .pipe(
-        tap((reviews) => {
-          this.productDetailService.setReviews(reviews);
-        })
-      );
+      .get<Review[]>(`http://localhost:8000/reviews?productId=${id}`);
   }
 }

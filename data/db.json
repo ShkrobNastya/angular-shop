@@ -125,14 +125,20 @@
     {
       "id": 3,
       "title": "Vince Camuto Eterno Eau de Toilette, 100ml",
-      "count": 1,
+      "count": 3,
       "price": 286
     },
     {
       "id": 2,
       "title": "Moresque Gold Collection Sole Eau de Parfum, 50ml",
-      "count": 8,
+      "count": 10,
       "price": "287"
+    },
+    {
+      "id": 1,
+      "title": "Van Cleef & Arpels Extraordinaire Precious Oud Eau de Parfum, 75ml",
+      "count": 2,
+      "price": 93.5
     }
   ],
   "users": [
@@ -145,6 +151,29 @@
       "email": "test@gmail.com",
       "password": "Test_12",
       "id": 2
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "Test_12",
+      "type": "[Auth] Register",
+      "id": 3
+    },
+    {
+      "email": "test@gmail.com",
+      "password": "Test_12",
+      "id": 4
+    },
+    {
+      "email": "shkrobnastya@gmail.com",
+      "password": "Tedstr4",
+      "type": "[Auth] Register",
+      "id": 5
+    },
+    {
+      "email": "shkrobnastya@gmail.com",
+      "password": "Test_32",
+      "type": "[Auth] Register",
+      "id": 6
     }
   ],
   "reviews": [

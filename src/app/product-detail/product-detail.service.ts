@@ -1,13 +1,12 @@
-import { Review } from './../shared/review.model';
-import { Subject } from 'rxjs';
-import { Product } from '../shared/product.model';
+import { Injectable } from '@angular/core';
+import { DataStorageService } from '../shared/data-storage.service';
 
+@Injectable({ providedIn: 'root' })
 export class ProductDetailService {
-  productChanged = new Subject<Product>();
-  reviewsChanged = new Subject<Review[]>();
 
-  private product: Product;
-  private reviews: Review[];
+  constructor(
+    private dataStorageService: DataStorageService,
+  ) {}
 
   stockPresenceColor: { [key: string]: string } = {
     'In stock': 'green',
@@ -15,25 +14,11 @@ export class ProductDetailService {
     'Out of stock': 'grey',
   };
 
-  setProduct(product: Product) {
-    this.product = product;
-    this.productChanged.next(this.product);
-  }
-
-  getProduct() {
-    return this.product;
-  }
-
   getStockColor(key: string) {
     return this.stockPresenceColor[key];
   }
 
-  setReviews(reviews: Review[]) {
-    this.reviews = reviews;
-    this.reviewsChanged.next(this.reviews);
-  }
-
-  getReviews() {
-    return this.reviews;
+  fetchReviews(id:number) {
+    return this.dataStorageService.fetchReviews(id);
   }
 }

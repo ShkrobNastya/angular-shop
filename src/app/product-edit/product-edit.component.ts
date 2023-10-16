@@ -4,6 +4,11 @@ import { DataStorageService } from './../shared/data-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../shared/product.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppStateInterface } from '../store/state.model';
+import { Store } from '@ngrx/store';
+import { updateProductAction } from '../store/actions/product.action';
+import { ProductEditService } from './product-edit.service';
+import { selectProducts } from '../store/selectors/product.selectors';
 
 @Component({
   selector: 'app-product-edit',
@@ -12,10 +17,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ProductEditComponent implements OnInit {
   constructor(
-    private dataStorageService: DataStorageService,
-    private productDetailService: ProductDetailService,
     private route: ActivatedRoute,
-    private router: Router
+    private store: Store<AppStateInterface>,
+    private productEditService: ProductEditService
   ) {}
 
   product: Product;
@@ -24,8 +28,9 @@ export class ProductEditComponent implements OnInit {
   isToastVisible: boolean = false;
 
   ngOnInit() {
-    this.dataStorageService.fetchProduct(this.id).subscribe(() => {
-      this.product = this.productDetailService.getProduct();
+    this.store.select(selectProducts)
+      .subscribe(products => {
+      this.product = products[this.id - 1];
       this.editForm = new FormGroup({
         title: new FormControl(this.product.title, Validators.required),
         price: new FormControl(this.product.price, Validators.required),
@@ -37,6 +42,10 @@ export class ProductEditComponent implements OnInit {
         image: new FormControl(this.product.image, Validators.required),
       });
     });
+
+    this.productEditService.isToastVisible.subscribe((isVisible) => {
+      this.isToastVisible = isVisible;
+    });
   }
 
   onSubmit() {
@@ -47,17 +56,7 @@ export class ProductEditComponent implements OnInit {
       .forEach((el) => {
         newProduct[el[0]] = el[1].value;
       });
-    this.dataStorageService
-      .updateProduct(newProduct, this.product.id)
-      .subscribe(() => {
-        this.product = this.productDetailService.getProduct();
-        this.isToastVisible = true;
-        setTimeout(() => {
-          this.isToastVisible = false;
-        }, 500);
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 500);
-      });
+
+      this.store.dispatch(updateProductAction({newProduct, id:this.product.id}));
   }
 }

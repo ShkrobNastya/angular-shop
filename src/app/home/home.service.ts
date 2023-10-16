@@ -1,10 +1,8 @@
-import { Subject } from 'rxjs';
-import { Product } from '../shared/product.model';
+import { DataStorageService } from '../shared/data-storage.service';
+import { Injectable } from '@angular/core';
 
+@Injectable({ providedIn: 'root' })
 export class HomeService {
-  productsChanged = new Subject<Product[]>();
-
-  private products: Product[] = [];
 
   routerObj: { [key: string]: { route: string; queryParam: string } } = {
     reviewsPresence: {
@@ -42,13 +40,20 @@ export class HomeService {
     maxRating: '★to',
   };
 
-  setProducts(products: Product[]) {
-    this.products = products;
-    this.productsChanged.next(this.products.slice());
+  constructor(
+    private dataStorageService: DataStorageService,
+  ) {}
+
+  fetchProducts() {
+    return this.dataStorageService.fetchProducts();
   }
 
-  getProducts() {
-    return this.products.slice();
+  deleteProduct(id:number) {
+    return this.dataStorageService.deleteProduct(id);
+  }
+
+  updateProduct(newProduct: { [key: string]: string }, id:number) {
+    return this.dataStorageService.updateProduct(newProduct, id);
   }
 
   createQueryParams(queryParams: { [key: string]: number | string }) {
