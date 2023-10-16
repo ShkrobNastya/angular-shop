@@ -7,7 +7,7 @@ import {
   updateCartOrderSuccessAction,
   updateCartOrderFailureAction,
   addCartOrderSuccessAction,
-  addCartOrderFailureAction
+  addCartOrderFailureAction,
 } from '../actions/cart.action';
 import { CartStateInterface } from '../state.model';
 
@@ -22,52 +22,54 @@ const cartReducer = createReducer(
     (state, action): CartStateInterface => ({
       ...state,
       items: action.items,
-    }),
+    })
   ),
   on(
     getCartDataFailureAction,
     (): CartStateInterface => ({
-      ...initialState
-    }),
+      ...initialState,
+    })
   ),
   on(
     deleteCartOrderSuccessAction,
     (state, action): CartStateInterface => ({
       ...state,
-      items: state.items.filter(item => item.id !== action.id),
-    }),
+      items: state.items.filter((item) => item.id !== action.id),
+    })
   ),
   on(
     deleteCartOrderFailureAction,
     (state): CartStateInterface => ({
-      ...state
-    }),
+      ...state,
+    })
   ),
   on(
     updateCartOrderSuccessAction,
     (state, action): CartStateInterface => ({
       ...state,
-      items: state.items.map(item => item.id === action.id ?{ ...item, ...action.newOrder }: item),
-    }),
+      items: state.items.map((item) =>
+        item.id === action.id ? { ...item, ...action.newOrder } : item
+      ),
+    })
   ),
   on(
     updateCartOrderFailureAction,
     (state): CartStateInterface => ({
-      ...state
-    }),
+      ...state,
+    })
   ),
   on(
     addCartOrderSuccessAction,
     (state, action): CartStateInterface => ({
       ...state,
       items: [...state.items, action.newOrder],
-    }),
+    })
   ),
   on(
     addCartOrderFailureAction,
     (state): CartStateInterface => ({
-      ...state
-    }),
+      ...state,
+    })
   )
 );
 

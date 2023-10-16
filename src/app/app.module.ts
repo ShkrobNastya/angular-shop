@@ -33,9 +33,8 @@ import { reducer as cartReducer } from 'src/app/store/reducers/cart.reducer';
 import { reducer as productsReducer } from 'src/app/store/reducers/product.reducer';
 import { reducer as reviewsReducer } from 'src/app/store/reducers/review.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
 import { LogoutEffect } from './store/effects/logout.effect';
-
 
 @NgModule({
   declarations: [
@@ -59,13 +58,23 @@ import { LogoutEffect } from './store/effects/logout.effect';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    EffectsModule.forRoot([RegisterEffect, LoginEffect, LogoutEffect, CartEffect, ProductsEffect, RewiewsEffect]),
+    EffectsModule.forRoot([
+      RegisterEffect,
+      LoginEffect,
+      LogoutEffect,
+      CartEffect,
+      ProductsEffect,
+      RewiewsEffect,
+    ]),
     StoreModule.forRoot({}, {}),
     StoreModule.forFeature('auth', authReducer),
     StoreModule.forFeature('products', productsReducer),
     StoreModule.forFeature('cart', cartReducer),
     StoreModule.forFeature('reviews', reviewsReducer),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [HomeService, ProductDetailService, CartService],
   bootstrap: [AppComponent],

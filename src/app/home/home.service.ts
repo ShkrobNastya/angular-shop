@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-
   routerObj: { [key: string]: { route: string; queryParam: string } } = {
     reviewsPresence: {
       route: 'isReviewsPresenceChecked',
@@ -40,19 +39,17 @@ export class HomeService {
     maxRating: '★to',
   };
 
-  constructor(
-    private dataStorageService: DataStorageService,
-  ) {}
+  constructor(private dataStorageService: DataStorageService) {}
 
   fetchProducts() {
     return this.dataStorageService.fetchProducts();
   }
 
-  deleteProduct(id:number) {
+  deleteProduct(id: number) {
     return this.dataStorageService.deleteProduct(id);
   }
 
-  updateProduct(newProduct: { [key: string]: string }, id:number) {
+  updateProduct(newProduct: { [key: string]: string }, id: number) {
     return this.dataStorageService.updateProduct(newProduct, id);
   }
 

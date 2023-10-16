@@ -28,8 +28,7 @@ export class ProductEditComponent implements OnInit {
   isToastVisible: boolean = false;
 
   ngOnInit() {
-    this.store.select(selectProducts)
-      .subscribe(products => {
+    this.store.select(selectProducts).subscribe((products) => {
       this.product = products[this.id - 1];
       this.editForm = new FormGroup({
         title: new FormControl(this.product.title, Validators.required),
@@ -57,6 +56,8 @@ export class ProductEditComponent implements OnInit {
         newProduct[el[0]] = el[1].value;
       });
 
-      this.store.dispatch(updateProductAction({newProduct, id:this.product.id}));
+    this.store.dispatch(
+      updateProductAction({ newProduct, id: this.product.id })
+    );
   }
 }

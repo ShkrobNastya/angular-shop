@@ -7,7 +7,10 @@ import { Product } from '../shared/product.model';
 import { HomeService } from './home.service';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from '../store/state.model';
-import { deleteProductAction, getProductsAction } from '../store/actions/product.action';
+import {
+  deleteProductAction,
+  getProductsAction,
+} from '../store/actions/product.action';
 import { selectProducts } from '../store/selectors/product.selectors';
 import { selectCartItems } from '../store/selectors/cart.selectors';
 import { getCartDataAction } from '../store/actions/cart.action';
@@ -34,8 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.filtersObj[key] = queryParams[key];
         }
 
-
-        this.store.dispatch(getProductsAction({filters:queryParamsString}));
+        this.store.dispatch(getProductsAction({ filters: queryParamsString }));
         this.products$ = this.store.select(selectProducts);
       }
     });
@@ -99,6 +101,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number) {
-    this.store.dispatch(deleteProductAction({id}));
+    this.store.dispatch(deleteProductAction({ id }));
   }
 }

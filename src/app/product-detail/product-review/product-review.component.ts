@@ -11,15 +11,12 @@ import { getReviewsAction } from 'src/app/store/actions/review.action';
   templateUrl: './product-review.component.html',
   styleUrls: ['./product-review.component.scss'],
 })
-export class ProductReviewComponent implements OnInit{
-  constructor(
-    private store: Store<AppStateInterface>
-  ) {}
+export class ProductReviewComponent implements OnInit {
+  constructor(private store: Store<AppStateInterface>) {}
   faUserCircle = faUserCircle;
   faStar = faStar;
 
   @Input() review: Review;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

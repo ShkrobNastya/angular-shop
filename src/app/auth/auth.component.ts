@@ -11,7 +11,10 @@ import { registerAction, loginAction } from '../store/actions/auth.action';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-  constructor(private authService: AuthService, private store: Store<AppStateInterface>) {}
+  constructor(
+    private authService: AuthService,
+    private store: Store<AppStateInterface>
+  ) {}
 
   @ViewChild('f') slForm: NgForm;
   isAuthentication: boolean = true;

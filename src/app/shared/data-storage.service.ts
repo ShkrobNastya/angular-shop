@@ -10,24 +10,20 @@ import { Review } from './review.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   fetchProducts(filters: string = '') {
     let params = '';
     if (filters) {
       params = '?' + params;
     }
-    return this.http
-      .get<Product[]>(`http://localhost:8000/products${params}`);
+    return this.http.get<Product[]>(`http://localhost:8000/products${params}`);
   }
 
   updateProduct(newProduct: { [key: string]: string }, id: number) {
-    return this.http
-      .patch<Product>(`http://localhost:8000/products/${id}`, {
-        ...newProduct,
-      });
+    return this.http.patch<Product>(`http://localhost:8000/products/${id}`, {
+      ...newProduct,
+    });
   }
 
   deleteProduct(id: number) {
@@ -38,18 +34,16 @@ export class DataStorageService {
     return this.http.get<Cart[]>('http://localhost:8000/cart');
   }
 
-  addCartOrder(newOrder:Cart) {
-    return this.http
-      .post<Cart>('http://localhost:8000/cart', {
-        ...newOrder,
-      });
+  addCartOrder(newOrder: Cart) {
+    return this.http.post<Cart>('http://localhost:8000/cart', {
+      ...newOrder,
+    });
   }
 
   updateCartOrder(newOrder: { [key: string]: number }, id: number) {
-    return this.http
-      .patch<Cart>(`http://localhost:8000/cart/${id}`, {
-        ...newOrder,
-      });
+    return this.http.patch<Cart>(`http://localhost:8000/cart/${id}`, {
+      ...newOrder,
+    });
   }
 
   deleteCartOrder(id: number) {
@@ -69,7 +63,8 @@ export class DataStorageService {
   }
 
   fetchReviews(id: number) {
-    return this.http
-      .get<Review[]>(`http://localhost:8000/reviews?productId=${id}`);
+    return this.http.get<Review[]>(
+      `http://localhost:8000/reviews?productId=${id}`
+    );
   }
 }

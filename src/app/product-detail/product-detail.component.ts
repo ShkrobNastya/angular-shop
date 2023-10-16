@@ -12,7 +12,6 @@ import { selectReviewItems } from '../store/selectors/review.selectors';
 import { getReviewsAction } from '../store/actions/review.action';
 import { getProductsAction } from '../store/actions/product.action';
 
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -23,7 +22,7 @@ export class ProductDetailComponent implements OnInit {
     private dataStorageService: DataStorageService,
     private productDetailService: ProductDetailService,
     private route: ActivatedRoute,
-    private store: Store<AppStateInterface>,
+    private store: Store<AppStateInterface>
   ) {}
 
   product: Product;
@@ -35,27 +34,28 @@ export class ProductDetailComponent implements OnInit {
   reviews: Review[];
 
   ngOnInit() {
-    this.store.dispatch(getProductsAction({filters: ''}));
+    this.store.dispatch(getProductsAction({ filters: '' }));
 
-    this.store.select(selectProducts)
-      .subscribe(products => {
-      this.product = products.filter(product => product.id.toString() === this.id)[0];
+    this.store.select(selectProducts).subscribe((products) => {
+      this.product = products.filter(
+        (product) => product.id.toString() === this.id
+      )[0];
 
       this.stockPresenceMessage =
-          this.product?.stock > 10
-            ? 'In stock'
-            : this.product?.stock === 0
-            ? 'Out of stock'
-            : 'Almost sold out';
+        this.product?.stock > 10
+          ? 'In stock'
+          : this.product?.stock === 0
+          ? 'Out of stock'
+          : 'Almost sold out';
 
       this.color = this.productDetailService.getStockColor(
         this.stockPresenceMessage
       );
 
-      this.store.dispatch(getReviewsAction({id:this.product?.id}));
+      this.store.dispatch(getReviewsAction({ id: this.product?.id }));
     });
 
-    this.store.select(selectReviewItems).subscribe(reviews => {
+    this.store.select(selectReviewItems).subscribe((reviews) => {
       this.reviews = reviews;
     });
   }

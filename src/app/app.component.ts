@@ -3,7 +3,6 @@ import { getCartDataAction } from './store/actions/cart.action';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from './store/state.model';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,10 +11,7 @@ import { AppStateInterface } from './store/state.model';
 export class AppComponent implements OnInit {
   title = 'angular-shop';
 
-  constructor(
-    private store: Store<AppStateInterface>
-  ) {}
-
+  constructor(private store: Store<AppStateInterface>) {}
 
   ngOnInit(): void {
     this.store.dispatch(getCartDataAction());

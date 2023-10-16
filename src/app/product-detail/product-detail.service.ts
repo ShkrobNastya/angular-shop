@@ -3,10 +3,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductDetailService {
-
-  constructor(
-    private dataStorageService: DataStorageService,
-  ) {}
+  constructor(private dataStorageService: DataStorageService) {}
 
   stockPresenceColor: { [key: string]: string } = {
     'In stock': 'green',
@@ -18,7 +15,7 @@ export class ProductDetailService {
     return this.stockPresenceColor[key];
   }
 
-  fetchReviews(id:number) {
+  fetchReviews(id: number) {
     return this.dataStorageService.fetchReviews(id);
   }
 }

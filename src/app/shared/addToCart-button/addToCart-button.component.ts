@@ -8,7 +8,11 @@ import { AppStateInterface } from 'src/app/store/state.model';
 import { Store } from '@ngrx/store';
 import { selectProducts } from 'src/app/store/selectors/product.selectors';
 import { selectCartItems } from 'src/app/store/selectors/cart.selectors';
-import { addCartOrderAction, deleteCartOrderAction, updateCartOrderAction } from 'src/app/store/actions/cart.action';
+import {
+  addCartOrderAction,
+  deleteCartOrderAction,
+  updateCartOrderAction,
+} from 'src/app/store/actions/cart.action';
 
 @Component({
   selector: 'app-addToCart-button',
@@ -20,7 +24,7 @@ export class AddToCartButtonComponent implements OnInit, OnChanges {
     private productDetailService: ProductDetailService,
     private cartService: CartService,
     private dataStorageService: DataStorageService,
-    private store: Store<AppStateInterface>,
+    private store: Store<AppStateInterface>
   ) {}
 
   @Input() count: number;
@@ -31,23 +35,26 @@ export class AddToCartButtonComponent implements OnInit, OnChanges {
   product: any;
 
   ngOnInit() {
-    this.store.select(selectProducts).subscribe(products =>
-      {
-        this.product = products.filter(product => product.id === this.productID)[0];
-        this.store.select(selectCartItems).subscribe(
-          (items) => {
-            const count = items.filter(product => product.id === this.productID)[0]?.count;
-            if(count) {
-              this.count = count;
-              this.isCounterVisible = true;
-            }
-          },
-          () => {
-            this.count = 0;
-            this.isCounterVisible = false;
-          });
-      }
-    )
+    this.store.select(selectProducts).subscribe((products) => {
+      this.product = products.filter(
+        (product) => product.id === this.productID
+      )[0];
+      this.store.select(selectCartItems).subscribe(
+        (items) => {
+          const count = items.filter(
+            (product) => product.id === this.productID
+          )[0]?.count;
+          if (count) {
+            this.count = count;
+            this.isCounterVisible = true;
+          }
+        },
+        () => {
+          this.count = 0;
+          this.isCounterVisible = false;
+        }
+      );
+    });
   }
 
   ngOnChanges() {
@@ -65,23 +72,27 @@ export class AddToCartButtonComponent implements OnInit, OnChanges {
       price: this.product.price,
     };
 
-    this.store.dispatch(addCartOrderAction({newOrder}));
+    this.store.dispatch(addCartOrderAction({ newOrder }));
   }
 
   decrementCount() {
     this.count--;
     if (this.count >= 1) {
-      let newOrder: { [key: string]: number } = {'count' : this.count};
-      this.store.dispatch(updateCartOrderAction({newOrder, id:this.product.id}));
+      let newOrder: { [key: string]: number } = { count: this.count };
+      this.store.dispatch(
+        updateCartOrderAction({ newOrder, id: this.product.id })
+      );
     } else if (this.count === 0) {
-      this.store.dispatch(deleteCartOrderAction({id:this.productID}));
+      this.store.dispatch(deleteCartOrderAction({ id: this.productID }));
       this.isCounterVisible = false;
     }
   }
 
   incrementCount() {
     this.count++;
-    let newOrder: { [key: string]: number } = {'count' : this.count};
-    this.store.dispatch(updateCartOrderAction({newOrder, id:this.product.id}));
+    let newOrder: { [key: string]: number } = { count: this.count };
+    this.store.dispatch(
+      updateCartOrderAction({ newOrder, id: this.product.id })
+    );
   }
 }

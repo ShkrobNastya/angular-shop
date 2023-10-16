@@ -12,7 +12,10 @@ import { logoutAction } from '../store/actions/auth.action';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private authService: AuthService, private store: Store<AppStateInterface>) {}
+  constructor(
+    private authService: AuthService,
+    private store: Store<AppStateInterface>
+  ) {}
 
   faShoppingCart = faShoppingCart;
   faRightFromBracket = faRightFromBracket;

@@ -5,9 +5,7 @@ import { User } from '../shared/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(
-    private dataStorageService: DataStorageService
-  ) {}
+  constructor(private dataStorageService: DataStorageService) {}
 
   user = new BehaviorSubject<any>(null);
   isErrorPopupHidden = new BehaviorSubject<boolean>(true);

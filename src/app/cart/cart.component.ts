@@ -45,19 +45,17 @@ import { deleteCartOrderAction } from '../store/actions/cart.action';
   ],
 })
 export class CartComponent implements OnInit {
-  constructor(
-    private store: Store<AppStateInterface>
-  ) {}
+  constructor(private store: Store<AppStateInterface>) {}
 
   cart: Cart[];
 
   ngOnInit() {
-    this.store.select(selectCartItems).subscribe(cart => {
+    this.store.select(selectCartItems).subscribe((cart) => {
       this.cart = cart;
     });
   }
 
   onDelete(id: number) {
-    this.store.dispatch(deleteCartOrderAction({id}));
+    this.store.dispatch(deleteCartOrderAction({ id }));
   }
 }

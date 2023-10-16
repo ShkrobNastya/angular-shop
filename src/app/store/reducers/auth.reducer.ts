@@ -1,10 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
   loginFailureAction,
- loginSuccessAction,
- registerFailureAction,
- registerSuccessAction,
- logoutAction
+  loginSuccessAction,
+  registerFailureAction,
+  registerSuccessAction,
+  logoutAction,
 } from '../actions/auth.action';
 import { AuthStateInterface } from '../state.model';
 
@@ -21,7 +21,7 @@ const authReducer = createReducer(
       ...state,
       userEmail: action.user.email,
       isLoggedIn: true,
-    }),
+    })
   ),
   on(
     registerFailureAction,
@@ -29,7 +29,7 @@ const authReducer = createReducer(
       ...state,
       userEmail: null,
       isLoggedIn: false,
-    }),
+    })
   ),
   on(
     loginSuccessAction,
@@ -37,7 +37,7 @@ const authReducer = createReducer(
       ...state,
       userEmail: action.user.email,
       isLoggedIn: true,
-    }),
+    })
   ),
   on(
     loginFailureAction,
@@ -45,14 +45,14 @@ const authReducer = createReducer(
       ...state,
       userEmail: null,
       isLoggedIn: false,
-    }),
+    })
   ),
   on(
     logoutAction,
     (): AuthStateInterface => ({
       ...initialState,
-    }),
-  ),
+    })
+  )
 );
 
 export function reducer(state: AuthStateInterface, action: Action) {

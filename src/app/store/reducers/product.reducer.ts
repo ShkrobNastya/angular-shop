@@ -21,39 +21,41 @@ const productsReducer = createReducer(
     (state, action): ProductsStateInterface => ({
       ...state,
       items: action.items,
-    }),
+    })
   ),
   on(
     getProductsFailureAction,
     (): ProductsStateInterface => ({
-      ...initialState
-    }),
+      ...initialState,
+    })
   ),
   on(
     deleteProductSuccessAction,
     (state, action): ProductsStateInterface => ({
       ...state,
-      items: state.items.filter(item => item.id !== action.id) as Product[],
-    }),
+      items: state.items.filter((item) => item.id !== action.id) as Product[],
+    })
   ),
   on(
     deleteProductFailureAction,
     (state): ProductsStateInterface => ({
-      ...state
-    }),
+      ...state,
+    })
   ),
   on(
     updateProductSuccessAction,
     (state, action): ProductsStateInterface => ({
       ...state,
-      items: state.items.map(item => item.id === action.id ?{ ...item, ...action.newProduct }: item) as Product[],
-    }),
+      items: state.items.map((item) =>
+        item.id === action.id ? { ...item, ...action.newProduct } : item
+      ) as Product[],
+    })
   ),
   on(
     updateProductFailureAction,
     (state): ProductsStateInterface => ({
-      ...state
-    }),
+      ...state,
+    })
   )
 );
 

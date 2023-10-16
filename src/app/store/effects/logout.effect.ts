@@ -15,15 +15,15 @@ export class LogoutEffect {
           console.log('ttt');
           this.authService.logout();
           this.router.navigateByUrl('/');
-        }),
+        })
       );
     },
-    { dispatch: false },
+    { dispatch: false }
   );
 
   constructor(
     private actions$: Actions,
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 }
