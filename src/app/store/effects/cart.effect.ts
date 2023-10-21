@@ -2,7 +2,7 @@ import { CartService } from 'src/app/cart/cart.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap, map, tap, pipe, catchError, of } from 'rxjs';
+import { switchMap, map, catchError, of } from 'rxjs';
 import {
   getCartDataAction,
   deleteCartOrderAction,

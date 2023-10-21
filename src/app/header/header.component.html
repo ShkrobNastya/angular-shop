@@ -12,7 +12,7 @@
           <a [routerLink]="['/']">Shop</a>
         </li>
         <li *ngIf="!isAuthed">
-          <a [routerLink]="['/auth']">Authentication</a>
+          <a class="navbar-auth" [routerLink]="['/auth']">Authentication</a>
         </li>
         <li routerLinkActive="active">
           <a class="cart-icon" [routerLink]="['/cart']">

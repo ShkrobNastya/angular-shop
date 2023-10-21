@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-4">
+<div *ngIf="product" class="col-sm-6 col-md-4 product">
   <div class="thumbnail">
     <a [routerLink]="['/product', product.id]">
       <img [src]="product.image" alt="noProducts" />

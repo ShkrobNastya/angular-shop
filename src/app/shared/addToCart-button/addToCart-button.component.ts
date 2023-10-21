@@ -1,9 +1,4 @@
-import { Cart } from './../cart.model';
-import { ProductDetailService } from './../../product-detail/product-detail.service';
-import { Product } from 'src/app/shared/product.model';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { CartService } from 'src/app/cart/cart.service';
-import { DataStorageService } from '../data-storage.service';
 import { AppStateInterface } from 'src/app/store/state.model';
 import { Store } from '@ngrx/store';
 import { selectProducts } from 'src/app/store/selectors/product.selectors';
@@ -20,12 +15,7 @@ import {
   styleUrls: ['./addToCart-button.component.scss'],
 })
 export class AddToCartButtonComponent implements OnInit, OnChanges {
-  constructor(
-    private productDetailService: ProductDetailService,
-    private cartService: CartService,
-    private dataStorageService: DataStorageService,
-    private store: Store<AppStateInterface>
-  ) {}
+  constructor(private store: Store<AppStateInterface>) {}
 
   @Input() count: number;
   @Input() productID: number;

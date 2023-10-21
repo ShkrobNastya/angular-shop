@@ -1,20 +1,7 @@
 import { HomeService } from './../../home/home.service';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap, map, tap, pipe, catchError, of } from 'rxjs';
-import {
-  getProductsAction,
-  getProductsSuccessAction,
-  getProductsFailureAction,
-  deleteProductAction,
-  deleteProductSuccessAction,
-  deleteProductFailureAction,
-  updateProductAction,
-  updateProductSuccessAction,
-  updateProductFailureAction,
-} from '../actions/product.action';
-import { ProductEditService } from 'src/app/product-edit/product-edit.service';
+import { switchMap, map, catchError, of } from 'rxjs';
 import {
   getReviewsAction,
   getReviewsFailureAction,

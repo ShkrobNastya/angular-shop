@@ -1,6 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductDetailService } from './../product-detail/product-detail.service';
-import { DataStorageService } from './../shared/data-storage.service';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../shared/product.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

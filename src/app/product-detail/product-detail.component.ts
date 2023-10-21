@@ -1,6 +1,5 @@
 import { Review } from './../shared/review.model';
 import { ProductDetailService } from './product-detail.service';
-import { DataStorageService } from '../shared/data-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../shared/product.model';
 import { ActivatedRoute } from '@angular/router';
@@ -19,7 +18,6 @@ import { getProductsAction } from '../store/actions/product.action';
 })
 export class ProductDetailComponent implements OnInit {
   constructor(
-    private dataStorageService: DataStorageService,
     private productDetailService: ProductDetailService,
     private route: ActivatedRoute,
     private store: Store<AppStateInterface>

@@ -1,5 +1,5 @@
 <div class="cart">
-  <table class="table table-hover" *ngIf="cart.length; else emptyCart">
+  <table class="table table-hover" *ngIf="cart?.length; else emptyCart">
     <thead>
       <tr>
         <th>Product ID</th>

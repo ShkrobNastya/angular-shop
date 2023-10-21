@@ -13,7 +13,6 @@ import {
 } from '../store/actions/product.action';
 import { selectProducts } from '../store/selectors/product.selectors';
 import { selectCartItems } from '../store/selectors/cart.selectors';
-import { getCartDataAction } from '../store/actions/cart.action';
 
 @Component({
   selector: 'app-home',

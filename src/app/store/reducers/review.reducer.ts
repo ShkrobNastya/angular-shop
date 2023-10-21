@@ -1,17 +1,5 @@
-import {
-  ProductsStateInterface,
-  ReviewsStateInterface,
-} from './../state.model';
+import { ReviewsStateInterface } from './../state.model';
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-  getProductsSuccessAction,
-  getProductsFailureAction,
-  deleteProductSuccessAction,
-  deleteProductFailureAction,
-  updateProductFailureAction,
-  updateProductSuccessAction,
-} from '../actions/product.action';
-import { Product } from 'src/app/shared/product.model';
 import {
   getReviewsFailureAction,
   getReviewsSuccessAction,

@@ -12,7 +12,6 @@ export class LogoutEffect {
       return this.actions$.pipe(
         ofType(logoutAction),
         tap(() => {
-          console.log('ttt');
           this.authService.logout();
           this.router.navigateByUrl('/');
         })
