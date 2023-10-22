@@ -51,7 +51,7 @@ import { LogoutEffect } from './store/effects/logout.effect';
     AddToCartButtonComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
