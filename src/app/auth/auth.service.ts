@@ -8,7 +8,6 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   constructor(private dataStorageService: DataStorageService) {}
 
-  // user = new BehaviorSubject<any>(null);
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkAuth());
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
@@ -33,8 +32,6 @@ export class AuthService {
   }
 
   logout() {
-    // this.user.next(null);
-    // sessionStorage.removeItem('userData');
     this.isLoggedInSubject.next(false);
     localStorage.removeItem('token');
   }
@@ -51,10 +48,4 @@ export class AuthService {
       return false;
     }
   }
-
-  // handleAuthentication(email: string, id?: number) {
-  // const user = new User(email, id);
-  // this.user.next(user);
-  // sessionStorage.setItem('userData', JSON.stringify(user));
-  // }
 }

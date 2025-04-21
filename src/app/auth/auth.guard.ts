@@ -14,20 +14,16 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      // Декодируем токен
       const decoded: { exp: number } = jwtDecode(token);
-      const currentTime = Math.floor(Date.now() / 1000); // в секундах
+      const currentTime = Math.floor(Date.now() / 1000);
 
       if (decoded.exp && decoded.exp < currentTime) {
-        // Токен истёк
         localStorage.removeItem('token');
         return this.router.createUrlTree(['/auth']);
       }
 
-      // Токен валиден
       return true;
     } catch (e) {
-      // Ошибка декодирования токена
       localStorage.removeItem('token');
       return this.router.createUrlTree(['/auth']);
     }

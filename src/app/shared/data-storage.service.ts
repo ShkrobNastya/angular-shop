@@ -12,14 +12,6 @@ import { Review } from './review.model';
 export class DataStorageService {
   constructor(private http: HttpClient) {}
 
-  // fetchProducts(filters: string = '') {
-  //   let params = '';
-  //   if (filters) {
-  //     params = '?' + params;
-  //   }
-  //   return this.http.get<Product[]>(`http://localhost:8000/products${params}`);
-  // }
-
   fetchProducts(queryParams: { [key: string]: any }) {
     const keys = [
       'minPrice',
@@ -77,12 +69,6 @@ export class DataStorageService {
       ...newUser,
     });
   }
-
-  // fetchUser(user: User) {
-  //   return this.http.get<User[]>(
-  //     `http://localhost:8000/users?email=${user.email}&password=${user.password}`
-  //   );
-  // }
 
   fetchUser(user: User) {
     return this.http.post<User>('http://localhost:8000/users/login', {
