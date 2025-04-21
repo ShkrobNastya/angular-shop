@@ -11,7 +11,8 @@ export const registerSuccessAction = createAction(
   props<{ user: User }>()
 );
 export const registerFailureAction = createAction(
-  AuthActionTypes.REGISTER_FAILURE
+  AuthActionTypes.REGISTER_FAILURE,
+  props<{ error: any }>()
 );
 export const loginAction = createAction(
   AuthActionTypes.LOGIN_USER,
@@ -21,5 +22,8 @@ export const loginSuccessAction = createAction(
   AuthActionTypes.LOGIN_SUCCESS,
   props<{ user: User }>()
 );
-export const loginFailureAction = createAction(AuthActionTypes.LOGIN_FAILURE);
+export const loginFailureAction = createAction(
+  AuthActionTypes.LOGIN_FAILURE,
+  props<{ error: any }>()
+);
 export const logoutAction = createAction(AuthActionTypes.LOGOUT);

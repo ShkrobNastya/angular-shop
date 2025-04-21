@@ -9,12 +9,17 @@
         <app-addToCart-button
           [count]="count"
           [productID]="product.id"
-          [disabled]="this.product.stock === 0"
+          [disabled]="this.product.stock === 0 || !isAuthed"
         ></app-addToCart-button>
-        <a [routerLink]="['/product/edit', product.id]" class="btn btn-success"
+        <a
+          *ngIf="isAuthed"
+          [routerLink]="['/product/edit', product.id]"
+          class="btn btn-success"
           >Edit</a
         >
-        <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+        <button *ngIf="isAuthed" (click)="onDelete()" class="btn btn-danger">
+          Delete
+        </button>
       </div>
       <div class="bottom-block">
         <div class="rating">

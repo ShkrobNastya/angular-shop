@@ -2,7 +2,7 @@ import { CartService } from './../cart/cart.service';
 import { Cart } from './cart.model';
 import { User } from './user.model';
 import { ProductDetailService } from './../product-detail/product-detail.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, take, tap } from 'rxjs/operators';
 import { Product } from './product.model';
@@ -12,12 +12,34 @@ import { Review } from './review.model';
 export class DataStorageService {
   constructor(private http: HttpClient) {}
 
-  fetchProducts(filters: string = '') {
-    let params = '';
-    if (filters) {
-      params = '?' + params;
-    }
-    return this.http.get<Product[]>(`http://localhost:8000/products${params}`);
+  // fetchProducts(filters: string = '') {
+  //   let params = '';
+  //   if (filters) {
+  //     params = '?' + params;
+  //   }
+  //   return this.http.get<Product[]>(`http://localhost:8000/products${params}`);
+  // }
+
+  fetchProducts(queryParams: { [key: string]: any }) {
+    const keys = [
+      'minPrice',
+      'maxPrice',
+      'minRating',
+      'maxRating',
+      'stockPresence',
+      'reviewsPresence',
+    ];
+    let httpParams = new HttpParams();
+    keys.forEach((key) => {
+      const value = queryParams[key];
+      if (value !== undefined && value !== null && value !== '') {
+        httpParams = httpParams.set(key, value);
+      }
+    });
+
+    return this.http.get<Product[]>('http://localhost:8000/products', {
+      params: httpParams,
+    });
   }
 
   updateProduct(newProduct: { [key: string]: string }, id: number) {
@@ -51,20 +73,33 @@ export class DataStorageService {
   }
 
   addUser(newUser: User) {
-    return this.http.post<User>('http://localhost:8000/users', {
+    return this.http.post<User>('http://localhost:8000/users/register', {
       ...newUser,
     });
   }
 
+  // fetchUser(user: User) {
+  //   return this.http.get<User[]>(
+  //     `http://localhost:8000/users?email=${user.email}&password=${user.password}`
+  //   );
+  // }
+
   fetchUser(user: User) {
-    return this.http.get<User[]>(
-      `http://localhost:8000/users?email=${user.email}&password=${user.password}`
-    );
+    return this.http.post<User>('http://localhost:8000/users/login', {
+      ...user,
+    });
   }
 
   fetchReviews(id: number) {
     return this.http.get<Review[]>(
       `http://localhost:8000/reviews?productId=${id}`
+    );
+  }
+
+  sendFeedbackMessage(payload: any) {
+    return this.http.post(
+      'http://localhost:8000/notifications/feedbackForm',
+      payload
     );
   }
 }

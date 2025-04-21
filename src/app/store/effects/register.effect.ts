@@ -17,7 +17,7 @@ export class RegisterEffect {
       exhaustMap((userData) =>
         this.authService.register(userData).pipe(
           map((user) => registerSuccessAction({ user })),
-          catchError(() => of(registerFailureAction()))
+          catchError((err) => of(registerFailureAction(err)))
         )
       )
     );
@@ -28,11 +28,9 @@ export class RegisterEffect {
       return this.actions$.pipe(
         ofType(registerSuccessAction),
         tap((userData) => {
-          this.authService.handleAuthentication(
-            userData.user.email,
-            userData.user.id
-          );
-          this.authService.isErrorPopupHidden.next(true);
+          userData.user?.token &&
+            localStorage.setItem('token', userData.user.token);
+          this.authService.setIsLoggedInSubject(true);
           this.router.navigate(['/']);
         })
       );
@@ -44,9 +42,11 @@ export class RegisterEffect {
     () => {
       return this.actions$.pipe(
         ofType(registerFailureAction),
-        tap(() => {
-          this.authService.isErrorPopupHidden.next(false);
-          this.router.navigate(['/']);
+        tap((err) => {
+          this.authService.errorTextSubject.next({
+            isVisible: true,
+            message: err.error.message,
+          });
         })
       );
     },

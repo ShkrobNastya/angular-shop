@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { DataStorageService } from '../shared/data-storage.service';
 import { Injectable } from '@angular/core';
 
@@ -39,10 +40,14 @@ export class HomeService {
     maxRating: '★to',
   };
 
-  constructor(private dataStorageService: DataStorageService) {}
+  constructor(
+    private dataStorageService: DataStorageService,
+    private route: ActivatedRoute
+  ) {}
 
   fetchProducts() {
-    return this.dataStorageService.fetchProducts();
+    const queryParams = this.route.snapshot.queryParams;
+    return this.dataStorageService.fetchProducts(queryParams);
   }
 
   deleteProduct(id: number) {

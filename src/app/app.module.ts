@@ -7,7 +7,7 @@ import { CartService } from './cart/cart.service';
 import { CartComponent } from './cart/cart.component';
 import { ProductDetailService } from './product-detail/product-detail.service';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -35,6 +35,10 @@ import { reducer as reviewsReducer } from 'src/app/store/reducers/review.reducer
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { LogoutEffect } from './store/effects/logout.effect';
+import { FooterComponent } from './footer/footer.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { ErrorInterceptor } from './shared/interceptors/errorInterceptor';
+import { NotificationsService } from './shared/notifications.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,7 @@ import { LogoutEffect } from './store/effects/logout.effect';
     AuthComponent,
     ProductReviewComponent,
     AddToCartButtonComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -76,7 +81,22 @@ import { LogoutEffect } from './store/effects/logout.effect';
       logOnly: environment.production,
     }),
   ],
-  providers: [HomeService, ProductDetailService, CartService],
+  providers: [
+    HomeService,
+    ProductDetailService,
+    CartService,
+    NotificationsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

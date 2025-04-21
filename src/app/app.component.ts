@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getCartDataAction } from './store/actions/cart.action';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from './store/state.model';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,16 @@ import { AppStateInterface } from './store/state.model';
 export class AppComponent implements OnInit {
   title = 'angular-shop';
 
-  constructor(private store: Store<AppStateInterface>) {}
+  constructor(
+    private store: Store<AppStateInterface>,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(getCartDataAction());
+    this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.store.dispatch(getCartDataAction());
+      }
+    });
   }
 }

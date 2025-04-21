@@ -16,15 +16,10 @@ export class LoginEffect {
       ofType(loginAction),
       exhaustMap((userData) =>
         this.authService.login(userData).pipe(
-          map((users) => users[0]),
           map((user) => {
-            if (user === undefined) {
-              return loginFailureAction();
-            } else {
-              return loginSuccessAction({ user });
-            }
+            return loginSuccessAction({ user });
           }),
-          catchError(() => of(loginFailureAction()))
+          catchError((err) => of(loginFailureAction(err)))
         )
       )
     );
@@ -35,11 +30,9 @@ export class LoginEffect {
       return this.actions$.pipe(
         ofType(loginSuccessAction),
         tap((userData) => {
-          this.authService.handleAuthentication(
-            userData.user.email,
-            userData.user.id
-          );
-          this.authService.isErrorPopupHidden.next(true);
+          this.authService.setIsLoggedInSubject(true);
+          userData.user?.token &&
+            localStorage.setItem('token', userData.user.token);
           this.router.navigate(['/']);
         })
       );
@@ -51,9 +44,11 @@ export class LoginEffect {
     () => {
       return this.actions$.pipe(
         ofType(loginFailureAction),
-        tap(() => {
-          this.authService.isErrorPopupHidden.next(false);
-          this.router.navigate(['/']);
+        tap((err) => {
+          this.authService.errorTextSubject.next({
+            isVisible: true,
+            message: err.error.message,
+          });
         })
       );
     },

@@ -6,8 +6,8 @@
       [ngClass]="{ 'registration-form': isAuthentication }"
     >
       <h2>{{ isAuthentication ? 'Register' : 'Login' }}</h2>
-      <div *ngIf="!isErrorPopupHidden && f.submitted" class="bg-danger toast">
-        Ops..., please check your email and adress
+      <div *ngIf="errorText.isVisible" class="bg-danger toast">
+        {{ errorText.message || 'Ops..., please check your email and adress' }}
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>

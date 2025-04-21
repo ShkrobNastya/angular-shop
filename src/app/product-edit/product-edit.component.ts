@@ -27,7 +27,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(selectProducts).subscribe((products) => {
-      this.product = products[this.id - 1];
+      this.product = products.find((product) => product.id === this.id)!;
       this.editForm = new FormGroup({
         title: new FormControl(this.product.title, Validators.required),
         price: new FormControl(this.product.price, Validators.required),

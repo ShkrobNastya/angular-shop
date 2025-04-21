@@ -14,7 +14,7 @@
         <li *ngIf="!isAuthed">
           <a class="navbar-auth" [routerLink]="['/auth']">Authentication</a>
         </li>
-        <li routerLinkActive="active">
+        <li *ngIf="isAuthed" routerLinkActive="active">
           <a class="cart-icon" [routerLink]="['/cart']">
             <fa-icon [icon]="faShoppingCart"></fa-icon>
           </a>
@@ -32,5 +32,8 @@
         </button>
       </div>
     </div>
+  </div>
+  <div *ngIf="notificationMessage.isVisible" class="notifications">
+    {{ notificationMessage.message }}
   </div>
 </nav>

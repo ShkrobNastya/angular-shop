@@ -1,0 +1,42 @@
+<footer>
+  <div class="footer">
+    <div>
+      <form
+        class="feedback-form"
+        [formGroup]="feedbackForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <h3>Feedback Form:</h3>
+        <div *ngIf="successMessage.visible" class="feedback-form__success">
+          {{ successMessage.message }}
+        </div>
+        <div *ngIf="errorMessage.visible" class="feedback-form__error">
+          {{ errorMessage.message }}
+        </div>
+        <div class="feedback-form__input">
+          <span>Name:</span>
+          <input type="text" class="form-control" formControlName="name" />
+        </div>
+        <div class="feedback-form__input">
+          <span>Email:</span>
+          <input type="email" class="form-control" formControlName="email" />
+        </div>
+        <div class="feedback-form__input">
+          <span>Phone:</span>
+          <input type="text" class="form-control" formControlName="phone" />
+        </div>
+        <div class="feedback-form__input">
+          <span>Message:</span>
+          <textarea
+            name=""
+            id=""
+            cols="78"
+            rows="3"
+            formControlName="message"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+  </div>
+</footer>

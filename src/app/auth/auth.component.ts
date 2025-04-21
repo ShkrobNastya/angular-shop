@@ -18,7 +18,10 @@ export class AuthComponent {
 
   @ViewChild('f') slForm: NgForm;
   isAuthentication: boolean = true;
-  isErrorPopupHidden: boolean = false;
+  errorText = {
+    isVisible: false,
+    message: '',
+  };
 
   onSubmit(form: NgForm) {
     const user = {
@@ -32,8 +35,16 @@ export class AuthComponent {
       this.store.dispatch(loginAction(user));
     }
 
-    this.authService.isErrorPopupHidden.subscribe((isHidden) => {
-      this.isErrorPopupHidden = isHidden;
+    this.authService.errorTextSubject.subscribe((errorTextSub) => {
+      this.errorText = errorTextSub;
+      if (errorTextSub.isVisible) {
+        setTimeout(() => {
+          this.authService.errorTextSubject.next({
+            isVisible: false,
+            message: '',
+          });
+        }, 5000);
+      }
     });
   }
 

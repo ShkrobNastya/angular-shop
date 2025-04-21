@@ -1,0 +1,22 @@
+.footer {
+  background-color: #e7e7e7;
+  padding: 50px 25px;
+
+  .feedback-form {
+    width: 20%;
+    &__success {
+      background-color: #5cb85c;
+      border: 1px solid #ded;
+      border-radius: 4px;
+      padding: 3px;
+      color: white;
+    }
+    &__error {
+      background-color: #d9534f;
+      border: 1px solid #ded;
+      border-radius: 4px;
+      padding: 3px;
+      color: white;
+    }
+  }
+}
