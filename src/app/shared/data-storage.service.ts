@@ -45,23 +45,35 @@ export class DataStorageService {
   }
 
   fetchCart() {
-    return this.http.get<Cart[]>('http://localhost:8000/cart');
+    return this.http.get<Cart[]>('http://localhost:8000/cart', {
+      withCredentials: true,
+    });
   }
 
   addCartOrder(newOrder: Cart) {
-    return this.http.post<Cart>('http://localhost:8000/cart', {
-      ...newOrder,
-    });
+    return this.http.post<Cart>(
+      'http://localhost:8000/cart',
+      {
+        ...newOrder,
+      },
+      { withCredentials: true }
+    );
   }
 
   updateCartOrder(newOrder: { [key: string]: number }, id: number) {
-    return this.http.patch<Cart>(`http://localhost:8000/cart/${id}`, {
-      ...newOrder,
-    });
+    return this.http.patch<Cart>(
+      `http://localhost:8000/cart/${id}`,
+      {
+        ...newOrder,
+      },
+      { withCredentials: true }
+    );
   }
 
   deleteCartOrder(id: number) {
-    return this.http.delete(`http://localhost:8000/cart/${id}`);
+    return this.http.delete(`http://localhost:8000/cart/${id}`, {
+      withCredentials: true,
+    });
   }
 
   addUser(newUser: User) {
@@ -71,9 +83,13 @@ export class DataStorageService {
   }
 
   fetchUser(user: User) {
-    return this.http.post<User>('http://localhost:8000/users/login', {
-      ...user,
-    });
+    return this.http.post<User>(
+      'http://localhost:8000/users/login',
+      {
+        ...user,
+      },
+      { withCredentials: true }
+    );
   }
 
   fetchReviews(id: number) {
@@ -86,6 +102,22 @@ export class DataStorageService {
     return this.http.post(
       'http://localhost:8000/notifications/feedbackForm',
       payload
+    );
+  }
+
+  refreshToken() {
+    return this.http.post(
+      'http://localhost:8000/refresh-token',
+      {},
+      { withCredentials: true }
+    );
+  }
+
+  logout() {
+    return this.http.post(
+      'http://localhost:8000/users/logout',
+      {},
+      { withCredentials: true }
     );
   }
 }

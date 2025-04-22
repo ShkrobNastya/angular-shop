@@ -13,7 +13,6 @@ export class LogoutEffect {
         ofType(logoutAction),
         tap(() => {
           this.authService.logout();
-          this.router.navigateByUrl('/');
         })
       );
     },

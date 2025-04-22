@@ -8,7 +8,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProductDetailService } from './product-detail/product-detail.service';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';

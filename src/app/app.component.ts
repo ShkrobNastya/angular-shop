@@ -18,8 +18,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
-      if (isLoggedIn) {
+    this.authService.isLoggedIn$.subscribe(() => {
+      if (true) {
         this.store.dispatch(getCartDataAction());
       }
     });

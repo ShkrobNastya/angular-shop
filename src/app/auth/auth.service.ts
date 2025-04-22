@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DataStorageService } from '../shared/data-storage.service';
 import { User } from '../shared/user.model';
 import { jwtDecode } from 'jwt-decode';
@@ -31,9 +31,14 @@ export class AuthService {
     this.isLoggedInSubject.next(value);
   }
 
+  refreshToken(): Observable<any> {
+    return this.dataStorageService.refreshToken();
+  }
+
   logout() {
     this.isLoggedInSubject.next(false);
     localStorage.removeItem('token');
+    this.dataStorageService.logout().subscribe();
   }
 
   private checkAuth(): boolean {

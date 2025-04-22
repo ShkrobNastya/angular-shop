@@ -27,6 +27,7 @@ export class AuthComponent {
     const user = {
       email: form.controls['email'].value,
       password: form.controls['password'].value,
+      rememberMe: form.controls['rememberMe'].value,
     };
 
     if (this.isAuthentication) {
